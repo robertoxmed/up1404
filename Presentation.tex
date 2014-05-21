@@ -113,11 +113,11 @@
                     \item {\bf ls -l} : montre les détails des fichiers.
                     \item {\bf ls }{\bf {\it<répertoire>}} : liste le contenu du répertoire.
                 \end{itemize}
-            \item {\bf cp} : changer de répertoire (on y reviendra dessus...)
+            \item {\bf cd} : changer de répertoire (on y reviendra dessus...)
             \item {\bf mkdir} : créer un répertoire
         \end{itemize}
         \begin{block}{Attention !}
-            Les commandes doivent respecter les miniscules/majuscules.\newline
+            Les commandes doivent respecter les minuscules/majuscules.\newline
             {\bf ls -r} n'est pas pareil que {\bf ls -R}
         \end{block}
     \end{frame}
@@ -200,30 +200,78 @@
     \subsection{Description du système de fichiers}
     \begin{frame}
         \frametitle{Description du système de fichiers}
+        \begin{itemize}
+            \item Sous UNIX et donc sous Linux, {\bf TOUT} est un fichier (ou presque...)
+            \item Souris, clavier, écran, disque dur... sont des fichiers.
+            \item Arborescence utilisée par le système.
+                \begin{itemize}
+                    \item {\bf /} : racine du système.
+                    \item {\bf /home} : dossier avec les données personnelles des utilisateurs.
+                    \item {\bf /etc} : réglages par défaut des programmes.
+                    \item {\bf /dev} : les devices (comme le disque dur).
+                \end{itemize}
+        \end{itemize}
     \end{frame}
 
     \subsection{Se déplacer dans l'arborescence}
     \begin{frame}
         \frametitle{Se déplacer dans l'arborescence}
+        Retour sur {\bf cd}.
+        \begin{itemize}
+            \item {\bf cd /} : aller à la racine.
+            \item {\bf cd} : sans arguments, aller dans le répertoire personnel.\newline
+                Équivalent à {\bf cd /home/<votre utilisateur>}
+            \item {\bf cd ..} : pour monter dans le répertoire père.\newline
+                {\bf cd ../../..} : nous fait remonter de trois répertoires.
+            \item {\bf pwd} : affiche le chemin absolu du répertoire courant. 
+        \end{itemize}
     \end{frame}
 
     \subsection{Illustration de l'arborescence}
     \begin{frame}
         \frametitle{Illustration de l'arborescence}
+        \includegraphics[width=10.5cm, height=5.5cm]{arborescence.eps}
     \end{frame}
 
     \subsection{Droits sur les fichiers}
     \begin{frame}
         \frametitle{Droits sur les fichiers}
+        Retour sur {\bf ls}.
+        \begin{itemize}
+            \item {\bf ls -l} : montre les détails sur les fichiers.
+            \item À gache on retrouve les différents droits d'accès pour les utilisateurs.
+                \begin{itemize}
+                    \item {\bf d} (pour Directory) indique si c'est un répertoire.
+                    \item {\bf r} (pour Read) indique si on peut lire sur le fichier.
+                    \item {\bf w} (pour Write) indique si on peut écrire sur le fichier.
+                    \item {\bf x} (pour eXecute) indique si on peut exécuter le fichier.
+                \end{itemize}
+        \end{itemize}
     \end{frame}
 
     \begin{frame}
         \frametitle{Exemple de droits}
+        \includegraphics[width=10.5cm, height=5cm]{droits.eps}
     \end{frame}
 
     \subsection{Changement de droits}
     \begin{frame}
         \frametitle{Changement de droits}
+        \begin{itemize}
+            \item {\bf chmod} : pour changer les droits sur des fichiers.
+            \item Mode octal:
+                \begin{itemize}
+                    \item {\bf chmod 755 <mon fichier>} chaque champ est représenté par un bit.
+                    \item Pas très pratique, faut savoir compter en binaire.
+                \end{itemize}
+            \item Mode avec caractères:
+                \begin{itemize}
+                    \item {\bf chmod u+x <mon fichier>} rajoute les droits d'exécution pour l'utilisateur.
+                    \item {\bf chmod +r <mon fichier>} droits d'exécution pour tous les utilisateurs.
+                    \item {\bf chmod g-w <mon fichier>} enlève les droits d'écriture pour le groupe.
+                \end{itemize}
+            \item {\bf chmod <droits> -R <mon répertoire>} : changer les droits sur un répertoire.
+        \end{itemize}
     \end{frame}
     
     %Quatrième section : Gestion de processus
@@ -231,6 +279,14 @@
     \subsection{Lancer des programmes}
     \begin{frame}
         \frametitle{Lancer des programmes}
+        {\bf programme -option1 -option2 ... argument1 argument2}
+        \begin{itemize}
+            \item {\bf gedit toto.txt} : ouvre l'éditeur de texte avec le fichier \texttt{toto.txt}.
+            \item Le PID (Process ID) s'affiche après avoir lancer un programme.
+            \item Le terminal ne rend pas la main.\newline
+                Lancer le programme suivi du symbole \texttt{\&}\newline
+                Ex : {\bf gedit toto.txt \&}
+        \end{itemize}
     \end{frame}
 
     \subsection{Arrière et premier plan}
@@ -240,10 +296,10 @@
 
     \subsection{Les commandes ps et kill}
     \begin{frame}
-        \frametitle{Les commandes ps et kill}
+        \frametitle{Les commandes \texttt{ps} et \texttt{kill}}
     \end{frame}
 
-    \subsection{L'utilitaire top}
+    \subsection{L'utilitaire \texttt{top}}
     \begin{frame}
         \frametitle{L'utilitaire top}
     \end{frame}
