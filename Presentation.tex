@@ -1,0 +1,292 @@
+\documentclass{beamer}
+
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{keystroke}
+
+\usetheme{Warsaw}
+
+\newcommand{\prompt}[1]{\footnotesize \colorbox{black}{\textcolor{white}{\texttt{user@hôte:\textasciitilde\$ #1}}}\normalsize}
+\definecolor{ubuntu}{HTML}{dd4814}
+
+\title[Ubuntu Party - 14.04]{Initiation à la ligne de commande}
+\author{Roberto Medina}
+\institute{roberto@mambochimbo.com}
+\date{24 Mai 2014}
+\titlegraphic{\includegraphics[width=3cm]{ubuntuparty_logo.eps}}
+
+\setbeamercolor{structure}{fg=ubuntu!90!ubuntu}
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm,ht=1.8em,wd=\paperwidth]{frametitle}
+        \vbox{}\vskip-2ex%
+        \strut\insertframetitle\strut
+        \vskip-0.8ex%
+    \end{beamercolorbox}
+}
+\begin{document}
+\begin{frame}[plain]
+        \titlepage
+        \center \includegraphics[width=2cm]{licence.eps}
+    \end{frame}
+    
+    \begin{frame}[plain]
+        \frametitle{Sommaire}
+        \begin{itemize}
+            \item Présentation de l'outil
+            \item Commandes de base
+            \item Système de fichiers, droits
+            \item Gestion de processus
+            \item Gestionnaire de paquets
+            \item Gestion de services
+        \end{itemize}
+    \end{frame}
+
+    %Première section (Introduction)
+    \section{Présentation de l'outil}
+    \subsection{Un peu d'histoire}
+    \begin{frame}
+        \frametitle{Un peu d'histoire}
+        \begin{itemize}
+            \item Qu'est-ce qu'un {\bf Shell} ?
+                \begin{itemize}
+                    \item Interface (logicielle) avec la machine.
+                    \item Interaction avec la machine à travers des commandes.
+                    \item Utilisé avant la souris, toujours présent à cause de son efficacité.
+                \end{itemize}
+            \item Exemples de Shell
+                \begin{itemize}
+                    \item Bourne Shell ({\bf bs})
+                    \item Bourne Again Shell ({\bf bash}) - Installé par défaut sur Ubuntu.
+                    \item Z Shell ({\bf zsh}) - Populaire entre les utilisateurs plus avancés.
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \subsection{Le terminal}
+    \begin{frame}
+        \frametitle{Le Terminal}
+        \begin{itemize}
+            \item Un {\bf terminal} : logiciel qui interprète des commandes shell.
+                \begin{itemize}
+                    \item Ouvrir un terminal : \Ctrl + \Alt + \keystroke{T} sous Unity.
+                    \item Différents terminales (dépend souvent de votre bureau)
+                        \begin{itemize}
+                            \item {\bf gnome-terminal} sous Unity, Cinnamon et Gnome
+                            \item {\bf konsole} sous KDE
+                            \item Autres options: {\bf xterm, terminator, finalterm}...
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \subsection{Invite de commande}
+    \begin{frame}
+        \frametitle{Invite de commande}
+        \center{\prompt{echo 'Hello world!'}}
+        \begin{itemize}
+            \item {\bf \texttt{user}} : Nom d'utilisateur.
+            \item {\bf \texttt{hôte}} : Nom de la machine.
+            \item {\bf \texttt{\~}} : Désigne le répertoire courant.
+            \item {\bf \texttt{\$}} : Identifie le type d'utilisateur
+            \begin{itemize}
+                \item \texttt{\#} : Il s'agit d'un super-utilisateur
+                \item \texttt{\%} : Super-utilisateur sous zsh
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+   
+    %Deuxième section (Commandes basiques)
+    \section{Commandes de base}
+    \subsection{Gestion de fichiers}
+    \begin{frame}
+        \frametitle{Gestion de fichiers}
+        {\bf commande -option1 -option2 ... argument1 argument2}
+        \begin{itemize}
+            \item {\bf ls} : lister le contenu d'un répertoire
+                \begin{itemize}
+                    \item Sans argument, liste le contenu du répertoire courant.
+                    \item {\bf ls -a} : montre les fichiers cachés.
+                    \item {\bf ls -l} : montre les détails des fichiers.
+                    \item {\bf ls }{\bf {\it<répertoire>}} : liste le contenu du répertoire.
+                \end{itemize}
+            \item {\bf cp} : changer de répertoire (on y reviendra dessus...)
+            \item {\bf mkdir} : créer un répertoire
+        \end{itemize}
+        \begin{block}{Attention !}
+            Les commandes doivent respecter les miniscules/majuscules.\newline
+            {\bf ls -r} n'est pas pareil que {\bf ls -R}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Un exemple}
+        \includegraphics[width=11.5cm,height=3.5cm]{exemple_fichiers.eps}
+    \end{frame}
+
+    \subsection{Complétion}
+    \begin{frame}
+        \frametitle{Complétion}
+        Ça permet d'éviter les erreurs de frappe et on peut aller plus vite.\newline \newline
+        Compléter le nom d'un fichier:
+        \begin{itemize}
+            \item {\bf cd Doc} \Tab => {\bf cd Documents}
+            \item {\bf cd D} \Tab \Tab
+            \item => Liste tous les répertoires commençant par {\bf D}
+        \end{itemize}
+    \end{frame}
+
+    \subsection{Gestion de fichiers (2)}
+    \begin{frame}
+        \frametitle{Gestion de fichiers (2)}
+        \begin{itemize}
+            \item {\bf rm} : supprimer des fichiers
+                \begin{itemize}
+                    \item {\bf rm -r} : supprimer des répertoires. {\bf -r} veut dire récursif.
+                    \item {\bf rm -f} : forcer la suppression.
+                \end{itemize}
+            \item {\bf cp} : copier des fichiers
+                \begin{itemize}
+                    \item {\bf cp <fichier1> ... <fichierN> <destination>}
+                        \begin{itemize}
+                            \item Destination devrait être un répertoire, sinon contenu remplacé.
+                            \item On peut copier plusieurs fichiers à la fois.
+                            \item {\bf cp -r} : copier des répertoires.
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Autres commandes utiles}
+        \begin{itemize}
+            \item {\bf mv} : déplacer des fichiers
+                \begin{itemize}
+                    \item Même syntaxe que {\bf cp}.
+                \end{itemize}
+            \item {\bf echo} : affiche une ligne de texte ou une variable d'environnement.
+            \item {\bf cat} : affiche le contenu d'un fichier.
+        \end{itemize}
+    \end{frame}
+
+    \subsection{Le manuel}
+    \begin{frame}
+        \frametitle{Le manuel}
+        {\bf man} : commande pour consulter le manuel d'une commande ou d'un programme
+        \begin{itemize}
+            \item Utilisation : {\bf man <commande>}
+            \item Très important et très utile! À utiliser sans modération.
+            \item En cas d'ambigüité on utilise différentes sections du manuel.
+                \begin{itemize}
+                    \item {\bf man kill} affiche le manuel de la commande {\bf kill} utilisée par le shell.
+                    \item {\bf man 2 kill} affiche le manuel de la fonction \texttt{kill} de POSIX.
+                \end{itemize}
+            \item Quitter le manuel \keystroke{Q}
+            \item {\bf man -k <mot clé>} : pour chercher une commande.
+            \item {\bf man man} : consulter le manuel du manuel.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Un exemple de manuel}
+        \includegraphics[width=10.5cm, height=5.5cm]{man.eps}
+    \end{frame}
+    
+    %Troisième section: Système de fichiers
+    \section{Système de fichiers}
+    \subsection{Description du système de fichiers}
+    \begin{frame}
+        \frametitle{Description du système de fichiers}
+    \end{frame}
+
+    \subsection{Se déplacer dans l'arborescence}
+    \begin{frame}
+        \frametitle{Se déplacer dans l'arborescence}
+    \end{frame}
+
+    \subsection{Illustration de l'arborescence}
+    \begin{frame}
+        \frametitle{Illustration de l'arborescence}
+    \end{frame}
+
+    \subsection{Droits sur les fichiers}
+    \begin{frame}
+        \frametitle{Droits sur les fichiers}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Exemple de droits}
+    \end{frame}
+
+    \subsection{Changement de droits}
+    \begin{frame}
+        \frametitle{Changement de droits}
+    \end{frame}
+    
+    %Quatrième section : Gestion de processus
+    \section{Gestion de processus}
+    \subsection{Lancer des programmes}
+    \begin{frame}
+        \frametitle{Lancer des programmes}
+    \end{frame}
+
+    \subsection{Arrière et premier plan}
+    \begin{frame}
+        \frametitle{Arrière et premier plan}
+    \end{frame}
+
+    \subsection{Les commandes ps et kill}
+    \begin{frame}
+        \frametitle{Les commandes ps et kill}
+    \end{frame}
+
+    \subsection{L'utilitaire top}
+    \begin{frame}
+        \frametitle{L'utilitaire top}
+    \end{frame}
+
+    %Cinquième section : gestion de paquets
+    \section{Gestion de paquets}
+    \begin{frame}
+        \frametitle{Description du gestionnaire}
+    \end{frame}
+
+    \subsection{Installer et mettre à jour}
+    \begin{frame}
+        \frametitle{Installations et mises à jour}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Exemple d'utilisation}
+    \end{frame}
+
+    \subsection{Désinstaller et nettoyer le cache}
+    \begin{frame}
+        \frametitle{Enlever des paquets et nettoyer le cache}
+    \end{frame}
+
+    \subsection{Chercher des paquets}
+    \begin{frame}
+        \frametitle{Chercher des paquets}
+    \end{frame}
+    
+    %Sixième section : Gestion de services
+    \section{Gestion de services}
+    \subsection{Démerrage de services}
+    \begin{frame}
+        \frametitle{Démarrage de services}
+    \end{frame}
+
+    \subsection{Lister les services}
+    \begin{frame}
+        \frametitle{Lister les différents services}
+    \end{frame}
+
+    \begin{frame}[plain]
+        \frametitle{Bibliographie}
+    \end{frame}
+
+\end{document}
