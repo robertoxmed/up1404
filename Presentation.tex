@@ -94,7 +94,7 @@
             \item {\bf \texttt{\$}} : Identifie le type d'utilisateur
             \begin{itemize}
                 \item \texttt{\#} : Il s'agit d'un super-utilisateur
-                \item \texttt{\%} : Super-utilisateur sous zsh
+                \item \texttt{\%} : Utilisateur sous zsh
                 \end{itemize}
         \end{itemize}
     \end{frame}
@@ -111,7 +111,7 @@
                     \item Sans argument, liste le contenu du répertoire courant.
                     \item {\bf ls -a} : montre les fichiers cachés.
                     \item {\bf ls -l} : montre les détails des fichiers.
-                    \item {\bf ls }{\bf {\it<répertoire>}} : liste le contenu du répertoire.
+                    \item {\bf ls }{\bf <répertoire>} : liste le contenu du répertoire.
                 \end{itemize}
             \item {\bf cd} : changer de répertoire (on y reviendra dessus...)
             \item {\bf mkdir} : créer un répertoire
@@ -135,7 +135,7 @@
         \begin{itemize}
             \item {\bf cd Doc} \Tab => {\bf cd Documents}
             \item {\bf cd D} \Tab \Tab
-            \item => Liste tous les répertoires commençant par {\bf D}
+                \newline => Liste tous les répertoires commençant par {\bf D}
         \end{itemize}
     \end{frame}
 
@@ -239,7 +239,7 @@
         Retour sur {\bf ls}.
         \begin{itemize}
             \item {\bf ls -l} : montre les détails sur les fichiers.
-            \item À gache on retrouve les différents droits d'accès pour les utilisateurs.
+            \item À gauche on retrouve les différents droits d'accès pour les utilisateurs.
                 \begin{itemize}
                     \item {\bf d} (pour Directory) indique si c'est un répertoire.
                     \item {\bf r} (pour Read) indique si on peut lire sur le fichier.
@@ -292,41 +292,99 @@
     \subsection{Arrière et premier plan}
     \begin{frame}
         \frametitle{Arrière et premier plan}
+        \begin{block}{Un exemple}
+        Lancer {\bf firefox} sans le \texttt{\&} .\newline
+        Comment récupérer l'invite de commande?
+        \end{block}
+        \begin{itemize}
+            \item Terminer le processus : \Ctrl + \keystroke{C}
+            \item Mettre en pause le processus : \Ctrl + \keystroke{Z}
+                \newline Utiliser la commande {\bf bg} pour reprendre la main.
+        \end{itemize}
     \end{frame}
 
-    \subsection{Les commandes ps et kill}
+    \subsection{Les commandes \texttt{ps} et \texttt{kill}}
     \begin{frame}
         \frametitle{Les commandes \texttt{ps} et \texttt{kill}}
+        \begin{itemize}
+            \item {\bf ps} : liste les processus. A besoin d'options pour être lisible.
+                \begin{itemize}
+                    \item {\bf ps -e} tous les processus.
+                    \item {\bf pstree} arborescence de processus.
+                \end{itemize}
+            \item {\bf kill} : envoyer un signal au processus.
+                \begin{itemize}
+                    \item {\bf kill -<Num de signal> <PID>}
+                    \item {\bf kill -9 <PID>} : terminer brutalement un processus.
+                    \item {\bf killall <Nom programme>} : termine tous les processus du groupe ayant le même nom.
+                \end{itemize}
+        \end{itemize}
     \end{frame}
 
     \subsection{L'utilitaire \texttt{top}}
     \begin{frame}
-        \frametitle{L'utilitaire top}
+        \frametitle{L'utilitaire \texttt{top}}
+        \includegraphics[width=10cm, height=5.5cm]{top.eps}
     \end{frame}
 
     %Cinquième section : gestion de paquets
     \section{Gestion de paquets}
     \begin{frame}
         \frametitle{Description du gestionnaire}
+        On peut gérer des paquets, des programmes depuis la ligne de commande.
+        \begin{itemize}
+            \item {\bf apt-get} : gestionnaire par défaut dans Ubuntu.
+            \item Nécessite des droits de super-utilisateur (root).
+            \item {\bf sudo} : commande permettant de lancer une autre commande comme root.
+        \end{itemize}
+        \begin{block}{sudo}
+            Le mot de passe n'est pas affiché pour des raisons de sécurité.\newline
+            Faire attention chaque fois que vous voyez {\bf sudo} quelque part.
+        \end{block}
     \end{frame}
 
     \subsection{Installer et mettre à jour}
     \begin{frame}
-        \frametitle{Installations et mises à jour}
+        \frametitle{Mises à jour et installations}
+        \begin{itemize}
+            \item {\bf sudo apt-get update} : met à jour la liste des paquets disponibles.
+            \item {\bf sudo apt-get upgrade} : met à jour les paquets (sûrs) installés.
+                \begin{itemize}
+                    \item {\bf sudo apt-get update \&\& sudo apt-get upgrade} enchaîner la mise à jour de\
+                        la base avec la mise à jour des paquets.
+                    \item \texttt{\&\&} indique qu'on fait l'enchaînement seulement si le programme d'avant\
+                        réussi.
+                \end{itemize}
+            \item {\bf sudo apt-get dist-upgrade} : met à jour les paquets plus critiques (comme le noyau).
+            \item {\bf sudo apt-get install <nom du programme>} : pour installer des programmes.
+            \item {\bf sudo apt-get install prog1 prog2 ... progN} installer plusieurs programmes à la fois.
+        \end{itemize}
     \end{frame}
 
     \begin{frame}
         \frametitle{Exemple d'utilisation}
+        \center \includegraphics[width=6cm, height=5.5cm]{apt-get.eps}
     \end{frame}
 
     \subsection{Désinstaller et nettoyer le cache}
     \begin{frame}
         \frametitle{Enlever des paquets et nettoyer le cache}
+        \begin{itemize}
+            \item {\bf sudo apt-get remove <paquet>} : désinstalle le paquet, mais pas ses fichiers de configuration.
+            \item {\bf sudo apt-get purge <paquet>} : désinstallation et enlève les fichiers de conf.
+            \item {\bf sudo apt-get autoremove} : enlève les paquets orphelins.
+            \item {\bf sudo apt-get autoclean} : pour nettoyer le cache de {\bf apt-get}.
+        \end{itemize}
     \end{frame}
 
     \subsection{Chercher des paquets}
     \begin{frame}
         \frametitle{Chercher des paquets}
+        \begin{itemize}
+            \item {\bf apt-cache search <mot clé>} : chercher des paquets installables avec {\bf apt-get}.
+            \item Le gestionnaire {\bf aptitude} a la même syntaxe mais possède quelques améliorations. Consulter le manuel.
+            \item {\bf sudo apt-get install aptitude}.
+        \end{itemize}
     \end{frame}
     
     %Sixième section : Gestion de services
@@ -334,15 +392,52 @@
     \subsection{Démerrage de services}
     \begin{frame}
         \frametitle{Démarrage de services}
+        Utile quand on veut administrer un serveur par exemple.
+        \begin{itemize}
+            \item {\bf /etc/init.d} : contient tous les services activés au démarrage.
+                \begin{itemize}
+                    \item Gestion d'Apache
+                    \item {\bf sudo /etc/init.d/apache2 start}
+                    \item {\bf sudo /etc/init.d/apache2 stop}
+                    \item Pour des versions récentes:
+                        \begin{itemize}
+                            \item {\bf sudo apache2 start}
+                            \item {\bf sudo apache2 restart}
+                        \end{itemize}
+                \end{itemize}
+        \end{itemize}
     \end{frame}
 
     \subsection{Lister les services}
     \begin{frame}
         \frametitle{Lister les différents services}
+        Ubuntu utilise Upstart pour démarrer des services.
+        \begin{itemize}
+            \item {\bf initctl list} : lister les services qui tournent.
+            \item {\bf sudo initctl stop <nom du service>} : pour arrêter un service.
+            \item {\bf sudo initctl start <nom du service>} : pour démarrer un service.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Autres commandes à regarder...}
+        \begin{itemize}
+            \item Les boucles : {\bf for, while, case, if}.
+            \item Manipulation des fichiers : {\bf chown, ln, mount, umount, df}.
+            \item Recherche : {\bf find, grep}.
+            \item Communication : {\bf ssh, telnet, scp, wget}.
+        \end{itemize}
     \end{frame}
 
     \begin{frame}[plain]
         \frametitle{Bibliographie}
+        \begin{itemize}
+            \item Ce cours sous Github:
+                \newline \href{http://tinyurl.com/PresUP1404}{http://tinyurl.com/PresUP1404}
+
+            \item Le cours de l'UP précédante:
+                \newline \href{http://tinyurl.com/PresUP1310} {http://tinyurl.com/PresUP1310}          
+        \end{itemize}
+
     \end{frame}
 
 \end{document}
